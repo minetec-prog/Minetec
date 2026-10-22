@@ -1,0 +1,803 @@
+HTML
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINETEC HUB | Centro de Conocimiento Corporativo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Barlow -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        minetec: {
+                            red: '#C41230',        /* Rojo Corporativo Oficial */
+                            redHover: '#A00E26',   /* Rojo Oscuro para Hovers */
+                            redLight: '#FDF2F4',   /* Fondo suave para tarjetas */
+                            silver: '#C2BCBC',     /* Gris Plateado Oficial */
+                            dark: '#1A1A1A',       /* Negro Oficial */
+                            gray: '#F8F9FA',
+                            slate: '#2D3748',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        barlow: ['Barlow', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Barlow', sans-serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .netflix-scroll::-webkit-scrollbar { height: 6px; }
+        .netflix-scroll::-webkit-scrollbar-thumb { background: #C41230; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-minetec-gray text-minetec-dark antialiased">
+
+    <!-- HEADER / NAVEGACIÓN -->
+    <header class="sticky top-0 z-50 bg-white border-b border-minetec-border shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo Corporativo Basado en la Marca -->
+            <div class="flex items-center space-x-3">
+                <a href="#" class="flex items-center space-x-1 font-black text-2xl tracking-tighter uppercase">
+                    <span class="text-minetec-dark">MINE</span><span class="text-minetec-red">TEC</span>
+                    <span class="text-xs font-bold tracking-widest text-minetec-dark border-l-2 border-minetec-red pl-2.5 ml-2">HUB</span>
+                </a>
+            </div>
+
+            <!-- Menú Principal -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-bold text-minetec-slate uppercase tracking-wider">
+                <a href="#inicio" class="hover:text-minetec-red transition">Inicio</a>
+                <a href="#accesos" class="hover:text-minetec-red transition">Biblioteca</a>
+                <a href="#productos" class="hover:text-minetec-red transition">Productos</a>
+                <a href="#proyectos" class="hover:text-minetec-red transition">Proyectos</a>
+                <a href="#departamentos" class="hover:text-minetec-red transition">Departamentos</a>
+            </nav>
+
+            <!-- Buscador y Perfil -->
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" id="globalSearch" placeholder="Buscar recursos (Ctrl + K)..." class="bg-minetec-gray border border-minetec-border text-sm rounded-full px-4 py-2 pl-10 focus:outline-none focus:border-minetec-red w-64 transition">
+                    <i class="fas fa-search absolute left-3.5 top-3 text-gray-400 text-xs"></i>
+                </div>
+                <div class="flex items-center space-x-3 pl-2 border-l border-minetec-border">
+                    <div class="w-10 h-10 rounded-full bg-minetec-red text-white font-bold flex items-center justify-center shadow-inner">
+                        RZ
+                    </div>
+                    <div class="hidden xl:block text-left text-xs">
+                        <p class="font-bold text-minetec-dark">Rodrigo Zamorano</p>
+                        <p class="text-gray-500">Ingeniería Minera</p>
+                    </div>
+                </div>
+                <button onclick="openUploadModal()" class="bg-minetec-red hover:bg-minetec-redHover text-white px-4 py-2 rounded text-sm font-bold shadow transition flex items-center space-x-2">
+                    <i class="fas fa-upload"></i>
+                    <span>Subir</span>
+                </button>
+            </div>
+            
+            <!-- Botón menú móvil -->
+            <div class="lg:hidden flex items-center">
+                <button onclick="toggleMobileMenu()" class="text-minetec-dark focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-minetec-border px-4 py-4 space-y-3">
+            <a href="#inicio" class="block font-semibold text-minetec-slate">Inicio</a>
+            <a href="#accesos" class="block font-semibold text-minetec-slate">Biblioteca</a>
+            <a href="#productos" class="block font-semibold text-minetec-slate">Productos</a>
+            <a href="#proyectos" class="block font-semibold text-minetec-slate">Proyectos</a>
+            <a href="#departamentos" class="block font-semibold text-minetec-slate">Departamentos</a>
+        </div>
+    </header>
+
+    <!-- HERO PRINCIPAL -->
+    <section id="inicio" class="hero-bg text-white py-24 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="bg-minetec-red text-white text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full mb-4 inline-block shadow">Centro de Conocimiento Corporativo</span>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight uppercase mb-4">MINETEC HUB</h1>
+            <p class="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light">Todo el conocimiento, proyectos y recursos corporativos en un solo lugar.</p>
+            
+            <!-- Barra de búsqueda central -->
+            <div class="max-w-3xl mx-auto bg-white p-2 rounded-xl shadow-2xl flex flex-col md:flex-row items-center space-y-2 md:space-y-0">
+                <div class="flex items-center pl-4 w-full md:w-auto flex-grow">
+                    <i class="fas fa-search text-minetec-red mr-3"></i>
+                    <input type="text" placeholder="¿Qué documento, plano, ficha o video necesitas hoy?" class="w-full text-minetec-dark focus:outline-none text-sm py-3">
+                </div>
+                <button class="bg-minetec-red hover:bg-minetec-redHover text-white font-bold px-8 py-3 rounded-lg w-full md:w-auto uppercase tracking-wider text-sm transition shadow">
+                    Buscar Recurso
+                </button>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#accesos" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 py-3 rounded-lg font-bold text-sm backdrop-blur-sm transition">
+                    Explorar Biblioteca
+                </a>
+                <a href="#proyectos" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 py-3 rounded-lg font-bold text-sm backdrop-blur-sm transition">
+                    Ver Últimos Proyectos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN ACCESOS RÁPIDOS -->
+    <section id="accesos" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Navegación por Categorías</span>
+                <h2 class="text-3xl font-black tracking-tight text-minetec-dark uppercase mt-1">Banco de Recursos</h2>
+            </div>
+            <span class="text-sm font-semibold text-gray-500">Acceso inmediato en < 10 segundos</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Tarjeta 1 -->
+            <div onclick="openCategory('Banco de Imágenes')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Banco de Imágenes</h3>
+                <p class="text-sm text-gray-500 mt-1">+12.000 recursos disponibles en alta resolución</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder al banco</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            <!-- Tarjeta 2 -->
+            <div onclick="openCategory('Banco de Videos')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Banco de Videos</h3>
+                <p class="text-sm text-gray-500 mt-1">+1.000 videos corporativos y simulaciones</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder al banco</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            <!-- Tarjeta 3 -->
+            <div onclick="openCategory('Fichas Técnicas')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Fichas Técnicas</h3>
+                <p class="text-sm text-gray-500 mt-1">+200 documentos de especificación técnica</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder a fichas</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            <!-- Tarjeta 4 -->
+            <div onclick="openCategory('Casos de Éxito')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Casos de Éxito</h3>
+                <p class="text-sm text-gray-500 mt-1">+50 reportes de implementación minera</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder a casos</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            <!-- Tarjeta 5 -->
+            <div onclick="openCategory('Identidad Corporativa')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Identidad Corporativa</h3>
+                <p class="text-sm text-gray-500 mt-1">Manual de marca, logotipos y plantillas</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder a marca</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            <!-- Tarjeta 6 -->
+            <div onclick="openCategory('Presentaciones Comerciales')" class="bg-white p-6 rounded-xl border border-minetec-border shadow-sm hover:shadow-md hover:border-minetec-red transition cursor-pointer group">
+                <div class="w-12 h-12 bg-minetec-redLight text-minetec-red rounded-lg flex items-center justify-center text-xl mb-4 group-hover:bg-minetec-red group-hover:text-white transition">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3 class="text-lg font-bold text-minetec-dark group-hover:text-minetec-red transition">Presentaciones Comerciales</h3>
+                <p class="text-sm text-gray-500 mt-1">Pitch decks, portfolios y brochures en PPT</p>
+                <div class="mt-4 flex items-center text-xs font-bold text-minetec-red uppercase tracking-wider">
+                    <span>Acceder a presentaciones</span>
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PRODUCTOS MINETEC -->
+    <section id="productos" class="py-16 bg-white border-y border-minetec-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Ingeniería Avanzada</span>
+                <h2 class="text-3xl font-black tracking-tight text-minetec-dark uppercase mt-1">Productos Minetec</h2>
+                <p class="text-gray-500 text-sm mt-2 max-w-xl mx-auto">Equipos diseñados para las condiciones más extremas de la minería global.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-minetec-gray rounded-xl border border-minetec-border overflow-hidden flex flex-col justify-between group hover:shadow-lg transition">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Tolva G5" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-minetec-dark text-white text-xs font-bold px-2.5 py-1 rounded">Flagship</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-minetec-dark">Tolva G5</h3>
+                            <p class="text-sm text-gray-600 mt-2">Máxima capacidad de carga con acero antidesgaste de alta resistencia y reducción de peso tara.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openProductModal('Tolva G5')" class="w-full bg-white hover:bg-minetec-red hover:text-white border border-minetec-border text-minetec-dark font-bold py-2.5 px-4 rounded text-sm transition flex items-center justify-center space-x-2">
+                            <span>Ver Recursos</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-minetec-gray rounded-xl border border-minetec-border overflow-hidden flex flex-col justify-between group hover:shadow-lg transition">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=600&q=80" alt="Baldes Minetec" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-minetec-dark">Baldes Minetec</h3>
+                            <p class="text-sm text-gray-600 mt-2">Diseños estructurales optimizados por elementos finitos para excavadoras de gran minería.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openProductModal('Baldes Minetec')" class="w-full bg-white hover:bg-minetec-red hover:text-white border border-minetec-border text-minetec-dark font-bold py-2.5 px-4 rounded text-sm transition flex items-center justify-center space-x-2">
+                            <span>Ver Recursos</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="bg-minetec-gray rounded-xl border border-minetec-border overflow-hidden flex flex-col justify-between group hover:shadow-lg transition">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="GET MTG" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-minetec-dark">GET MTG</h3>
+                            <p class="text-sm text-gray-600 mt-2">Sistemas de protección de suelo y desgaste mecánico de alta durabilidad y recambio seguro.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openProductModal('GET MTG')" class="w-full bg-white hover:bg-minetec-red hover:text-white border border-minetec-border text-minetec-dark font-bold py-2.5 px-4 rounded text-sm transition flex items-center justify-center space-x-2">
+                            <span>Ver Recursos</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="bg-minetec-gray rounded-xl border border-minetec-border overflow-hidden flex flex-col justify-between group hover:shadow-lg transition">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80" alt="Reparables y Recuperables" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-minetec-dark">Reparables y Recuperables</h3>
+                            <p class="text-sm text-gray-600 mt-2">Programas de reacondicionamiento certificado para extender el ciclo de vida útil de los componentes.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="openProductModal('Reparables y Recuperables')" class="w-full bg-white hover:bg-minetec-red hover:text-white border border-minetec-border text-minetec-dark font-bold py-2.5 px-4 rounded text-sm transition flex items-center justify-center space-x-2">
+                            <span>Ver Recursos</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PROYECTOS DESTACADOS -->
+    <section id="proyectos" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+            <div>
+                <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Portfolio de Ingeniería</span>
+                <h2 class="text-3xl font-black tracking-tight text-minetec-dark uppercase mt-1">Proyectos Destacados</h2>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-2">
+                <button onclick="filterProjects('all')" class="bg-minetec-red text-white px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition">Todos</button>
+                <button onclick="filterProjects('latam')" class="bg-white border border-minetec-border text-minetec-dark px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition">Latam</button>
+                <button onclick="filterProjects('global')" class="bg-white border border-minetec-border text-minetec-dark px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition">Global</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Proyecto 1 -->
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm group hover:shadow-md transition">
+                <div class="h-48 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f6?auto=format&fit=crop&w=600&q=80" alt="Mantoverde" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute bottom-3 left-3 bg-minetec-red text-white text-xs font-bold px-2.5 py-1 rounded uppercase">Chile</span>
+                </div>
+                <div class="p-5">
+                    <p class="text-xs font-bold text-minetec-red uppercase tracking-wider">Cliente: Mantoverde</p>
+                    <h3 class="text-lg font-bold text-minetec-dark mt-1">Expansión Minera Fase II</h3>
+                    <p class="text-xs text-gray-500 mt-1"><i class="fas fa-users mr-1"></i> Equipo: Ingeniería de Aplicaciones & Operaciones</p>
+                    <button onclick="openProjectDetail('Mantoverde')" class="mt-4 w-full bg-minetec-gray hover:bg-minetec-red hover:text-white text-minetec-dark font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                        Ver Proyecto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Proyecto 2 -->
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm group hover:shadow-md transition">
+                <div class="h-48 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=600&q=80" alt="Vale Brasil" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute bottom-3 left-3 bg-minetec-dark text-white text-xs font-bold px-2.5 py-1 rounded uppercase">Brasil</span>
+                </div>
+                <div class="p-5">
+                    <p class="text-xs font-bold text-minetec-red uppercase tracking-wider">Cliente: Vale Brasil</p>
+                    <h3 class="text-lg font-bold text-minetec-dark mt-1">Flota de Tolvas G5 Heavy</h3>
+                    <p class="text-xs text-gray-500 mt-1"><i class="fas fa-users mr-1"></i> Equipo: Comercial & Soporte Técnico</p>
+                    <button onclick="openProjectDetail('Vale Brasil')" class="mt-4 w-full bg-minetec-gray hover:bg-minetec-red hover:text-white text-minetec-dark font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                        Ver Proyecto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Proyecto 3 -->
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm group hover:shadow-md transition">
+                <div class="h-48 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Codelco" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute bottom-3 left-3 bg-minetec-red text-white text-xs font-bold px-2.5 py-1 rounded uppercase">Chile</span>
+                </div>
+                <div class="p-5">
+                    <p class="text-xs font-bold text-minetec-red uppercase tracking-wider">Cliente: Codelco</p>
+                    <h3 class="text-lg font-bold text-minetec-dark mt-1">Optimización División Norte</h3>
+                    <p class="text-xs text-gray-500 mt-1"><i class="fas fa-users mr-1"></i> Equipo: I+D & Automatización</p>
+                    <button onclick="openProjectDetail('Codelco')" class="mt-4 w-full bg-minetec-gray hover:bg-minetec-red hover:text-white text-minetec-dark font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                        Ver Proyecto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Proyecto 4 -->
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm group hover:shadow-md transition">
+                <div class="h-48 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="Proyectos Internacionales" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <span class="absolute bottom-3 left-3 bg-minetec-dark text-white text-xs font-bold px-2.5 py-1 rounded uppercase">Global</span>
+                </div>
+                <div class="p-5">
+                    <p class="text-xs font-bold text-minetec-red uppercase tracking-wider">Cliente: Global Mining Corp</p>
+                    <h3 class="text-lg font-bold text-minetec-dark mt-1">Implementación GET Global</h3>
+                    <p class="text-xs text-gray-500 mt-1"><i class="fas fa-users mr-1"></i> Equipo: Gerencia Técnica</p>
+                    <button onclick="openProjectDetail('Proyectos Internacionales')" class="mt-4 w-full bg-minetec-gray hover:bg-minetec-red hover:text-white text-minetec-dark font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                        Ver Proyecto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN RECURSOS MÁS DESCARGADOS (NETFLIX STYLE) -->
+    <section class="py-16 bg-minetec-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Tendencias en la plataforma</span>
+                    <h2 class="text-3xl font-black tracking-tight uppercase mt-1">Recursos más descargados</h2>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="scrollSlider('left')" class="w-10 h-10 rounded bg-white/10 hover:bg-minetec-red flex items-center justify-center transition"><i class="fas fa-chevron-left"></i></button>
+                    <button onclick="scrollSlider('right')" class="w-10 h-10 rounded bg-white/10 hover:bg-minetec-red flex items-center justify-center transition"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Slider Netflix -->
+            <div id="netflixSlider" class="flex space-x-6 overflow-x-auto netflix-scroll pb-6">
+                <!-- Card 1 -->
+                <div class="min-w-[280px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex-shrink-0 group">
+                    <div class="h-40 relative">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=500&q=80" alt="Brochure" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-minetec-red text-white text-[10px] font-bold px-2 py-0.5 rounded">PDF</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white text-sm">Brochure Tolva G5</h4>
+                        <p class="text-xs text-gray-400 mt-1">Especificaciones comerciales completas.</p>
+                        <button onclick="downloadResource('Brochure Tolva G5')" class="mt-3 w-full bg-white/10 hover:bg-minetec-red text-white font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                            Descargar (4.2 MB)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="min-w-[280px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex-shrink-0 group">
+                    <div class="h-40 relative">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f6?auto=format&fit=crop&w=500&q=80" alt="Presentación" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-minetec-red text-white text-[10px] font-bold px-2 py-0.5 rounded">PPTX</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white text-sm">Presentación Corporativa</h4>
+                        <p class="text-xs text-gray-400 mt-1">Deck oficial de ventas 2026.</p>
+                        <button onclick="downloadResource('Presentación Corporativa')" class="mt-3 w-full bg-white/10 hover:bg-minetec-red text-white font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                            Descargar (18.5 MB)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="min-w-[280px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex-shrink-0 group">
+                    <div class="h-40 relative">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=500&q=80" alt="Manual" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-minetec-red text-white text-[10px] font-bold px-2 py-0.5 rounded">PDF</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white text-sm">Manual de Marca</h4>
+                        <p class="text-xs text-gray-400 mt-1">Guía de identidad visual corporativa.</p>
+                        <button onclick="downloadResource('Manual de Marca')" class="mt-3 w-full bg-white/10 hover:bg-minetec-red text-white font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                            Descargar (9.1 MB)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="min-w-[280px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex-shrink-0 group">
+                    <div class="h-40 relative">
+                        <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=500&q=80" alt="Catálogo" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-minetec-red text-white text-[10px] font-bold px-2 py-0.5 rounded">PDF</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white text-sm">Catálogo de Baldes</h4>
+                        <p class="text-xs text-gray-400 mt-1">Modelos y capacidades estándar.</p>
+                        <button onclick="downloadResource('Catálogo de Baldes')" class="mt-3 w-full bg-white/10 hover:bg-minetec-red text-white font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                            Descargar (12.4 MB)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="min-w-[280px] bg-slate-900 rounded-xl border border-slate-800 overflow-hidden flex-shrink-0 group">
+                    <div class="h-40 relative">
+                        <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=500&q=80" alt="Video" class="w-full h-full object-cover group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-minetec-red text-white text-[10px] font-bold px-2 py-0.5 rounded">MP4</span>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-white text-sm">Video Corporativo</h4>
+                        <p class="text-xs text-gray-400 mt-1">Showreel industrial y tecnológico.</p>
+                        <button onclick="downloadResource('Video Corporativo')" class="mt-3 w-full bg-white/10 hover:bg-minetec-red text-white font-bold py-2 rounded text-xs uppercase tracking-wider transition">
+                            Descargar (140 MB)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN ESTADÍSTICAS -->
+    <section class="py-16 bg-white border-b border-minetec-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                <div class="p-4 border-r last:border-r-0 border-minetec-border">
+                    <p class="text-3xl lg:text-4xl font-black text-minetec-red">+12.000</p>
+                    <p class="text-xs font-bold text-minetec-slate uppercase mt-1">Fotografías</p>
+                </div>
+                <div class="p-4 border-r last:border-r-0 border-minetec-border">
+                    <p class="text-3xl lg:text-4xl font-black text-minetec-red">+1.000</p>
+                    <p class="text-xs font-bold text-minetec-slate uppercase mt-1">Videos</p>
+                </div>
+                <div class="p-4 border-r last:border-r-0 border-minetec-border">
+                    <p class="text-3xl lg:text-4xl font-black text-minetec-red">+200</p>
+                    <p class="text-xs font-bold text-minetec-slate uppercase mt-1">Fichas Técnicas</p>
+                </div>
+                <div class="p-4 border-r last:border-r-0 border-minetec-border">
+                    <p class="text-3xl lg:text-4xl font-black text-minetec-red">+50</p>
+                    <p class="text-xs font-bold text-minetec-slate uppercase mt-1">Casos de Éxito</p>
+                </div>
+                <div class="col-span-2 md:col-span-1 p-4">
+                    <p class="text-3xl lg:text-4xl font-black text-minetec-red">+30</p>
+                    <p class="text-xs font-bold text-minetec-slate uppercase mt-1">Proyectos Internacionales</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOTICIAS CORPORATIVAS -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Actualidad Minetec</span>
+            <h2 class="text-3xl font-black tracking-tight text-minetec-dark uppercase mt-1">Noticias Corporativas</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Noticia 1" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs font-bold text-minetec-red">18 de Octubre, 2026</p>
+                        <h3 class="text-lg font-bold text-minetec-dark mt-1">Lanzamiento oficial de la nueva generación Tolva G5 Plus</h3>
+                        <p class="text-sm text-gray-600 mt-2">Nuestra planta principal culmina con éxito las pruebas de resistencia extrema en ambientes ácidos.</p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="#" onclick="openNewsModal(1)" class="text-xs font-bold text-minetec-red uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                        <span>Leer más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18f86f6?auto=format&fit=crop&w=600&q=80" alt="Noticia 2" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs font-bold text-minetec-red">10 de Octubre, 2026</p>
+                        <h3 class="text-lg font-bold text-minetec-dark mt-1">Expansión estratégica de Minetec en el mercado brasileño</h3>
+                        <p class="text-sm text-gray-600 mt-2">Nuevos contratos con gigantes mineros consolidan nuestra presencia en el cono sur.</p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="#" onclick="openNewsModal(2)" class="text-xs font-bold text-minetec-red uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                        <span>Leer más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-minetec-border overflow-hidden shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="Noticia 3" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs font-bold text-minetec-red">02 de Octubre, 2026</p>
+                        <h3 class="text-lg font-bold text-minetec-dark mt-1">Certificación ISO 9001 renovada para todos nuestros procesos</h3>
+                        <p class="text-sm text-gray-600 mt-2">Compromiso inquebrantable con la calidad y la seguridad industrial en cada componente fabricado.</p>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="#" onclick="openNewsModal(3)" class="text-xs font-bold text-minetec-red uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                        <span>Leer más</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DEPARTAMENTOS -->
+    <section id="departamentos" class="py-16 bg-white border-t border-minetec-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-minetec-red font-bold uppercase tracking-wider text-sm">Áreas de Trabajo</span>
+                <h2 class="text-3xl font-black tracking-tight text-minetec-dark uppercase mt-1">Departamentos</h2>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                <div onclick="openDepartment('Marketing')" class="bg-minetec-gray hover:bg-minetec-redLight border border-minetec-border hover:border-minetec-red p-6 rounded-xl text-center cursor-pointer transition group">
+                    <i class="fas fa-bullhorn text-2xl text-minetec-red mb-3"></i>
+                    <h3 class="font-bold text-minetec-dark text-sm">Marketing</h3>
+                </div>
+                <div onclick="openDepartment('Comercial')" class="bg-minetec-gray hover:bg-minetec-redLight border border-minetec-border hover:border-minetec-red p-6 rounded-xl text-center cursor-pointer transition group">
+                    <i class="fas fa-handshake text-2xl text-minetec-red mb-3"></i>
+                    <h3 class="font-bold text-minetec-dark text-sm">Comercial</h3>
+                </div>
+                <div onclick="openDepartment('Ingeniería')" class="bg-minetec-gray hover:bg-minetec-redLight border border-minetec-border hover:border-minetec-red p-6 rounded-xl text-center cursor-pointer transition group">
+                    <i class="fas fa-cogs text-2xl text-minetec-red mb-3"></i>
+                    <h3 class="font-bold text-minetec-dark text-sm">Ingeniería</h3>
+                </div>
+                <div onclick="openDepartment('Operaciones')" class="bg-minetec-gray hover:bg-minetec-redLight border border-minetec-border hover:border-minetec-red p-6 rounded-xl text-center cursor-pointer transition group">
+                    <i class="fas fa-truck-loading text-2xl text-minetec-red mb-3"></i>
+                    <h3 class="font-bold text-minetec-dark text-sm">Operaciones</h3>
+                </div>
+                <div onclick="openDepartment('Gerencia')" class="bg-minetec-gray hover:bg-minetec-redLight border border-minetec-border hover:border-minetec-red p-6 rounded-xl text-center cursor-pointer transition group">
+                    <i class="fas fa-user-tie text-2xl text-minetec-red mb-3"></i>
+                    <h3 class="font-bold text-minetec-dark text-sm">Gerencia</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-minetec-dark text-white py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div>
+                <div class="flex items-center space-x-1 font-black text-xl tracking-tighter uppercase">
+                    <span class="text-white">MINE</span><span class="text-minetec-red">TEC</span>
+                    <span class="text-xs font-bold tracking-widest text-gray-300 border-l-2 border-minetec-red pl-2.5 ml-2">HUB</span>
+                </div>
+                <p class="text-xs text-minetec-silver mt-2 tracking-widest uppercase font-semibold">ENGINEERED FOR THE EXTREME</p>
+            </div>
+
+            <div class="flex space-x-8 text-sm font-semibold text-gray-300">
+                <a href="#" class="hover:text-minetec-red transition">Sitio Corporativo</a>
+                <a href="#accesos" class="hover:text-minetec-red transition">Biblioteca</a>
+                <a href="#" onclick="openContactModal()" class="hover:text-minetec-red transition">Contacto</a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-minetec-red transition"><i class="fab fa-linkedin text-lg"></i></a>
+            </div>
+
+            <div class="text-xs text-gray-500">
+                &copy; 2026 MINETEC International. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL GENERAL / INTERACTIVO -->
+    <div id="appModal" class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center hidden backdrop-blur-sm p-4">
+        <div class="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl relative border border-minetec-border">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-minetec-dark">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST DE NOTIFICACIÓN -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-minetec-dark text-white px-6 py-3 rounded-lg shadow-xl border-l-4 border-minetec-red transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3">
+        <i class="fas fa-check-circle text-minetec-red text-xl"></i>
+        <div>
+            <p class="font-bold text-sm" id="toastTitle">Acción realizada</p>
+            <p class="text-xs text-gray-300" id="toastDesc">El recurso se ha procesado con éxito.</p>
+        </div>
+    </div>
+
+    <!-- SCRIPTS DE INTERACTIVIDAD -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function openCategory(name) {
+            const modal = document.getElementById('appModal');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="w-16 h-16 bg-minetec-redLight text-minetec-red rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-minetec-dark uppercase">${name}</h3>
+                    <p class="text-sm text-gray-500 mt-2">Explorando repositorio corporativo autorizado.</p>
+                    <div class="mt-6 bg-minetec-gray p-4 rounded-lg text-left border border-minetec-border">
+                        <p class="text-xs font-bold text-minetec-slate uppercase mb-2">Filtros rápidos disponibles:</p>
+                        <ul class="text-sm space-y-1 text-gray-700">
+                            <li><i class="fas fa-check text-minetec-red mr-2"></i> Últimos 30 días</li>
+                            <li><i class="fas fa-check text-minetec-red mr-2"></i> Alta resolución / Master</li>
+                            <li><i class="fas fa-check text-minetec-red mr-2"></i> Aprobado por Ingeniería</li>
+                        </ul>
+                    </div>
+                    <button onclick="showToast('Descarga iniciada', 'Sincronizando archivos de ${name}'); closeModal();" class="mt-6 w-full bg-minetec-red hover:bg-minetec-redHover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wider transition">
+                        Sincronizar y Ver Todo
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function openProductModal(product) {
+            const modal = document.getElementById('appModal');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div>
+                    <span class="bg-minetec-red text-white text-xs font-bold px-2 py-0.5 rounded uppercase">Ficha de Producto</span>
+                    <h3 class="text-2xl font-black text-minetec-dark uppercase mt-2">${product}</h3>
+                    <p class="text-sm text-gray-600 mt-2">Documentación técnica, planos en CAD, manuales de operación y galería multimedia oficial.</p>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between items-center p-3 bg-minetec-gray rounded border border-minetec-border text-sm">
+                            <span class="font-semibold">Especificaciones Técnicas (PDF)</span>
+                            <button onclick="showToast('Descarga', 'Descargando ficha de ${product}')" class="text-minetec-red font-bold"><i class="fas fa-download"></i></button>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-minetec-gray rounded border border-minetec-border text-sm">
+                            <span class="font-semibold">Modelos 3D / CAD (.STEP)</span>
+                            <button onclick="showToast('Descarga', 'Descargando CAD de ${product}')" class="text-minetec-red font-bold"><i class="fas fa-download"></i></button>
+                        </div>
+                    </div>
+                    <button onclick="closeModal(); showToast('Acceso concedido', 'Abriendo visor técnico para ${product}')" class="mt-6 w-full bg-minetec-dark hover:bg-black text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wider transition">
+                        Abrir en Visor Técnico
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function openProjectDetail(project) {
+            const modal = document.getElementById('appModal');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div>
+                    <span class="text-xs font-bold text-minetec-red uppercase">Caso de Estudio Minero</span>
+                    <h3 class="text-2xl font-black text-minetec-dark uppercase mt-1">${project}</h3>
+                    <p class="text-sm text-gray-600 mt-2">Reporte completo de ingeniería, métricas de rendimiento operacional, reducción de downtime y feedback del cliente.</p>
+                    <div class="mt-4 bg-minetec-redLight p-4 rounded-lg border border-red-200">
+                        <p class="text-xs font-bold text-minetec-red uppercase">Resultado Clave</p>
+                        <p class="text-sm font-semibold text-minetec-dark mt-1">+24% de eficiencia en ciclos de carga con cero incidentes reportados.</p>
+                    </div>
+                    <button onclick="closeModal(); showToast('Reporte', 'Descargando caso ${project}')" class="mt-6 w-full bg-minetec-red hover:bg-minetec-redHover text-white font-bold py-3 rounded-lg text-sm uppercase tracking-wider transition">
+                        Descargar Caso Completo
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        }
+
+        function downloadResource(resName) {
+            showToast('Descarga Exitosa', `El archivo "${resName}" se ha descargado a tu equipo.`);
+        }
+
+        function openDepartment(dep) {
+            showToast('Portal Departamental', `Accediendo al espacio de ${dep}`);
+        }
+
+        function openNewsModal(id) {
+            showToast('Noticias Minetec', 'Cargando boletín informativo completo.');
+        }
+
+        function openContactModal() {
+            showToast('Soporte Hub', 'Contactando al administrador: soporte@minetechub.com');
+        }
+
+        function openUploadModal() {
+            showToast('Subir Recurso', 'Panel de contribución de archivos abierto.');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('appModal');
+            modal.classList.add('hidden');
+        }
+
+        function scrollSlider(direction) {
+            const slider = document.getElementById('netflixSlider');
+            const scrollAmount = 320;
+            if (direction === 'left') {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        function filterProjects(type) {
+            showToast('Filtro aplicado', `Mostrando proyectos: ${type.toUpperCase()}`);
+        }
+
+        // Atajo de teclado Ctrl+K / Cmd+K para búsqueda
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('globalSearch').focus();
+                showToast('Búsqueda Global', 'Escribe para buscar cualquier recurso en < 10 segundos');
+            }
+        });
+    </script>
+</body>
+</html>
